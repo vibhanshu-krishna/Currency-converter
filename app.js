@@ -33,3 +33,21 @@ const updateFlag=(element)=>{
     img.src=newSrc;
 };
 
+btn.addEventListener("click", async (evt) => {
+    evt.preventDefault();
+    let amount=document.querySelector(".amount input");
+    let amtVal=amount.value;
+    if(amtVal===""|| amtVal < 0){
+        amtVal=1;
+        amount.value="1";
+    }
+    
+    const URL=`${BASE_URL}/${fromCurr.value}/${toCurr.value}`
+    let response= await fetch(URL);
+    let data= await response.json();
+    let rate=data.rate;
+
+    let finalAmt=amtVal*rate;
+    msg.innerText=`${amtVal} ${fromCurr.value} = ${finalAmt} ${toCurr.value}`;
+});
+
